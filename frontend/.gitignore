@@ -1,0 +1,29 @@
+# ======================
+# Vite + React Frontend
+# ======================
+
+# Dependency folder
+node_modules/
+
+# Build output
+dist/
+build/
+.vite/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Temporary / caches
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.vscode/
+.idea/
+
+# Mac / Windows system
+Desktop.ini
