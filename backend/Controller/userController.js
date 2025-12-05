@@ -3,43 +3,33 @@ const Application = require("../Model/userModel");
 
 exports.submitApplication = catchAsyncError(async (req, res) => {
   try {
-    const {
-      firstname,
-      lastname,
-      email,
-      phone,
-      position,
-      experience,
-      coverletter,
-      portfolioUrl,
-      aboutus,
-    } = req.body;
+    // console.log("=== REQ.BODY ===", req.body);
+    // console.log("=== REQ.FILE ===", req.file);
 
-    // files from multer
-    const resumeFiles = req.files;
 
-    if (!resumeFiles || resumeFiles.length === 0) {
+    if (!req.file) {
       return res.status(400).json({
         success: false,
         message: "Resume is required",
       });
     }
 
-    const resumePaths = resumeFiles.map((file) => ({
-      fileUrl: file.path,
-    }));
-
+    let resumeUrl = "";
+  if (req.file && req.file.path) {
+    resumeUrl = req.file.path; // Cloudinary returns hosted URL
+  }
+  
     const application = await Application.create({
-      firstname,
-      lastname,
-      email,
-      phone,
-      position,
-      experience,
-      coverletter,
-      portfolioUrl,
-      aboutus,
-      resumes: resumePaths,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      phone: req.body.phone,
+      position: req.body.position,
+      experience: req.body.experience,
+      coverletter: req.body.coverletter,
+      portfolioUrl: req.body.portfolioUrl,
+      aboutus: req.body.aboutus,
+      resumes: resumeUrl,
     });
 
     return res.status(201).json({
@@ -47,13 +37,11 @@ exports.submitApplication = catchAsyncError(async (req, res) => {
       message: "Application submitted successfully",
       data: application,
     });
-  } catch (error) {
-    console.error("Submit Error:", error);
-
+  } catch (err) {
+    console.log("Error:", err);
     return res.status(500).json({
       success: false,
-      message: "Application submit failed",
-      error: error.message,
+      message: err.message,
     });
   }
 });

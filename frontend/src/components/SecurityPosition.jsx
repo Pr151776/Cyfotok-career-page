@@ -182,9 +182,12 @@ export const SecurityPosition = () => {
               </ul>
             </div>
             <div className="flex gap-10">
-              <button className="px-5 py-2 rounded-xl border border-blue-400 cursor-pointer hover:bg-blue-600 text-gray-50">
+              <Link
+                to="/career/apply"
+                className="px-5 py-2 rounded-xl border border-blue-400 cursor-pointer hover:bg-blue-600 text-gray-50"
+              >
                 Apply Now
-              </button>
+              </Link>
               <button className="px-5 py-2 bg-[#05020f] text-gray-100 rounded-xl cursor-pointer">
                 Know More
               </button>

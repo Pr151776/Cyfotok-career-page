@@ -14,7 +14,6 @@ const applicationSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "Please enter email"],
-      unique: true,
       validate: [validator.isEmail, "Please enter valid email"],
     },
     phone: {
@@ -29,83 +28,28 @@ const applicationSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please enter years of experience"],
     },
-    aboutus: String,
-    coverletter: String,
+    aboutus: {
+      type: String,
+      default: "",
+    },
+    coverletter: {
+      type: String,
+      default: "",
+    },
     portfolioUrl: {
       type: String,
       validate: {
-        validator(v) {
-          return !v || validator.isURL(v);
-        },
+        validator: (v) => !v || validator.isURL(v),
         message: "Invalid URL",
       },
     },
-    resumes: [
-      {
-        fileUrl: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    resumes: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-const Application =  mongoose.model("Application", applicationSchema);
+const Application = mongoose.model("Application", applicationSchema);
 module.exports = Application;
-
-
-
-// const mongoose = require('mongoose');
-// const validaor = require('validator')
-
-// const userSchema = new mongoose.Schema({
-//     firstname: {
-//         type: String,
-//         required: [true, "Please enter First name"]
-//     },
-//     lastname: {
-//         type: String,
-//         required: [true, "Please enter Lansrt name"]
-//     },
-//     email: {
-//         type: String,
-//         required: [true, "Please enter Email"],
-//         unique: true,
-//         validate: [validaor.isEmail, "Please enter valid email"]
-//     },
-//     phone: {
-//         type: String,
-//         required: [true, "Please enter Phone number"]
-//     },
-//     position: {
-//         type: String,
-//         required: [true, "Please select Position applied"]
-//     },
-//     expereience: {
-//         type: Number,
-//         required: [true, "Please enter year of expereience"]
-//     },
-//     aboutus: {
-//         type: String,
-//     },
-//     coverletter: {
-//         type: String
-//     },
-//     portfolioUrl: {
-//         type: URL
-//     },
-//     images: [
-//         {
-//             image: {
-//                 type: String,
-//                 required: true
-//             }
-//         }
-//     ]
-// });
-
-// const User = mongoose.model('User', userSchema);
-
-// module.exports = User;
