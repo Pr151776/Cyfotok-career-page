@@ -13,7 +13,7 @@ const app = express();
 
 const allowed = [
   "http://localhost:5173",
-  "https://your-frontend.vercel.app"
+  "https://cyfotok-career-page.vercel.app"
 ];
 app.use(cors({
   origin: function(origin, callback) {
