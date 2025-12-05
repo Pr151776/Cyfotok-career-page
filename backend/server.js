@@ -5,8 +5,9 @@ const errorMiddleware = require('./Middleware/error');
 const cookieParser = require('cookie-parser');
 const connectDatabase = require('./database');
 const cors = require('cors');
+const path = require("path");
 
-dotenv.config({ path: './backend/config.env' });
+require("dotenv").config({ path: path.join(__dirname, "config.env") });
 connectDatabase();
 
 const app = express();

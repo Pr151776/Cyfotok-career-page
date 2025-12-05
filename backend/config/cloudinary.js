@@ -1,9 +1,10 @@
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 
-// load env only if not loaded already
-dotenv.config({ path: "./backend/config.env" });
+// load env - use absolute path robustly
+dotenv.config({ path: require("path").join(__dirname, "..", "config.env") });
 
+// DEBUG (remove after)
 console.log("DEBUG: CLOUDINARY envs ->", {
   NAME: !!process.env.CLOUDINARY_CLOUD_NAME,
   KEY: !!process.env.CLOUDINARY_API_KEY,
@@ -17,3 +18,4 @@ cloudinary.config({
 });
 
 module.exports = cloudinary;
+
