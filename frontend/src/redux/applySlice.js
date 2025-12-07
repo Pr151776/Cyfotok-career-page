@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE = import.meta.env.REACT_APP_API_BASE || "";
+const API_BASE = import.meta.env.VITE_API_BASE || "";
 const API_URL = `${API_BASE.replace(/\/$/, "")}/apply`; 
 
-console.log("API_BASE:", import.meta.env.REACT_APP_API_BASE);
+console.log("API_BASE:", import.meta.env.VITE_API_BASE);
 console.log("API_URL:", API_URL);
 
 export const submitApplication = createAsyncThunk(
