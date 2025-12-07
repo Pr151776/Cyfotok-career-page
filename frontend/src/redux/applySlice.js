@@ -1,26 +1,48 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = import.meta.env.REACT_APP_API_BASE;
+// const API_URL = import.meta.env.REACT_APP_API_BASE;
 
-// --------------------- ASYNC THUNK ---------------------
+const API_BASE = import.meta.env.REACT_APP_API_BASE || ""; 
+// VITE_API_BASE = "https://<railway>.up.railway.app/api/v1"
+
+const API_URL = `${API_BASE.replace(/\/$/, "")}/apply`; 
+// final: https://<railway>.up.railway.app/api/v1/apply
+
 export const submitApplication = createAsyncThunk(
   "apply/submit",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      return response.data;
+      const res = await axios.post(API_URL, formData); // ✅ now goes to Railway
+      return res.data;
     } catch (error) {
       console.log("ERR RESPONSE:", error.response?.data);
-
       return rejectWithValue(
         error.response?.data?.message || "Failed to submit application"
       );
     }
   }
 );
+
+
+// --------------------- ASYNC THUNK ---------------------
+// export const submitApplication = createAsyncThunk(
+//   "apply/submit",
+//   async (formData, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.post(`${API_URL}`, formData, {
+//         headers: { "Content-Type": "multipart/form-data" },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       console.log("ERR RESPONSE:", error.response?.data);
+
+//       return rejectWithValue(
+//         error.response?.data?.message || "Failed to submit application"
+//       );
+//     }
+//   }
+// );
 
 // --------------------- SLICE ---------------------
 const applySlice = createSlice({
