@@ -8,7 +8,7 @@ export const submitApplication = createAsyncThunk(
   "apply/submit",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/apply`, formData, {
+      const response = await axios.post(`${API_URL}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return response.data;
