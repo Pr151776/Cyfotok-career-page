@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const API_URL = import.meta.env.REACT_APP_API_BASE;
-
-const API_BASE = import.meta.env.REACT_APP_API_BASE || ""; 
-// VITE_API_BASE = "https://<railway>.up.railway.app/api/v1"
-
+const API_BASE = import.meta.env.REACT_APP_API_BASE || "";
 const API_URL = `${API_BASE.replace(/\/$/, "")}/apply`; 
-// final: https://<railway>.up.railway.app/api/v1/apply
 
-console.log('Before submit',API_URL)
+console.log("API_BASE:", import.meta.env.VITE_API_BASE);
+console.log("API_URL:", API_URL);
 
 export const submitApplication = createAsyncThunk(
   "apply/submit",
@@ -26,26 +22,6 @@ export const submitApplication = createAsyncThunk(
     }
   }
 );
-
-
-// --------------------- ASYNC THUNK ---------------------
-// export const submitApplication = createAsyncThunk(
-//   "apply/submit",
-//   async (formData, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(`${API_URL}`, formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-//       return response.data;
-//     } catch (error) {
-//       console.log("ERR RESPONSE:", error.response?.data);
-
-//       return rejectWithValue(
-//         error.response?.data?.message || "Failed to submit application"
-//       );
-//     }
-//   }
-// );
 
 // --------------------- SLICE ---------------------
 const applySlice = createSlice({
