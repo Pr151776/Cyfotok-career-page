@@ -9,11 +9,14 @@ const API_BASE = import.meta.env.REACT_APP_API_BASE || "";
 const API_URL = `${API_BASE.replace(/\/$/, "")}/apply`; 
 // final: https://<railway>.up.railway.app/api/v1/apply
 
+console.log('Before submit',API_URL)
+
 export const submitApplication = createAsyncThunk(
   "apply/submit",
   async (formData, { rejectWithValue }) => {
     try {
       const res = await axios.post(API_URL, formData); // ✅ now goes to Railway
+      console.log('After submit',API_URL)
       return res.data;
     } catch (error) {
       console.log("ERR RESPONSE:", error.response?.data);
